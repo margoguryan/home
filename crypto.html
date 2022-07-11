@@ -1,0 +1,79 @@
+Write a webpage with JS, HTML and CSS for computing simple public/private keys in-browser:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Public/Private Key Generator</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+<section class="section">
+    <div class="container">
+        <h1 class="title">
+            Public/Private Key Generator
+        </h1>
+
+        <div class="columns is-mobile">
+            <div class="column is-half">
+                <div class="field">
+                    <label class="label">Enter a message</label>
+                    <div class="control has-icons-left has-icons-right">
+                        <input id="message" class="input is-success" type="text" placeholder="" value="Hello, world!">
+                        <span class="icon is-small is-left">
+            <i class="fas fa-envelope"></i>
+          </span>
+
+                    </div>
+
+                </div>
+
+                <div id = "keypair"class ="field">
+
+                </div>
+
+                <button id = "generate"class = "button is-primary" onclick= "generateKeys(); return false;">Generate Keys</button><br><br><br>
+
+                <!-- Display the public key -->
+
+                Message:  &emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span id = "display_message"></span>"<br><br><br>
+
+                Encrypted Message:  &emsp;"<span id = "encrypted_message"></span>"<br><br><br>
+
+                Decrypted Message:  &emsp;"<span id = "decrypted_message"></span>"
+
+            </div>
+
+        </div>
+
+    </div></section>Strings are not valid key sizes"; //size in bits (must be multiple of 8) else an exception is thrown //or an error string if the size is invalidvar keysize = 256;
+//Creates a new key pair using the algorithm, key size and passphrase specified.
+//The keys are returned as an object with 'publicKey' and 'privateKey' properties.
+//If no passphrase is specified, the key pair is not encrypted.
+
+
+var generateKeys = function() {
+
+    var message = $("#message").val();
+    var display_message = $("#display_message");
+    display_message.html(message);
+
+    var encryptedResult = doEncrypt(keysize, message);
+    $("#encrypted_message").html(encryptedResult);
+
+    var decryptedResult = doDecrypt(keysize, encryptedResult);
+    $("#decrypted_message").html(decryptedResult) ;
+
+   return false; // To prevent form submission.
+};
+
+
+function doEncrypt (keysize, message){
+
+     // Generate a key pair. Uses the Node.js Crypto module or Web Cryptography API. // Returns an object with 'publicKey' and 'privateKey' properties.var { publicKey, privateKey } = generateKeysSync({ name: " RSA-OAEP", // Algorithm to use modulusLength: keysize, // Can be 1024, 2048, or 4096 publicExponent: 0x10001, // Must be non-zero hash: " SHA-256", // Can be " SHA-1", " SHA-256", " SHA-384", or" SHA-512" });
+</script>
+</body>
+</html>
