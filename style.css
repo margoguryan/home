@@ -1,0 +1,78 @@
+h1 {
+    color: black;
+    -webkit-animation: pulse 1s infinite alternate, wiggle 2s infinite;
+    animation: pulse 5s infinite alternate, wiggle 2s infinite;
+  }
+  
+  @-webkit-keyframes pulse {
+    from {
+      text-shadow: 0 0 10px white;
+    }
+    to {
+      text-shadow: 0 0 20px black;
+    }
+  }
+  
+  @keyframes pulse {
+    from {
+      text-shadow: 0 0 10px white;
+    }
+    to {
+      text-shadow: 0 0 200px linear-gradient(blue, green)
+    }
+  }
+  
+  @-webkit-keyframes wiggle {
+    0% {
+      transform: skewX(0deg);
+    }
+    25% {
+      transform: skewX(-4deg);
+    }
+    50% {
+      transform: skewX(0deg);
+    }
+    75% {
+      transform: skewX(4deg);
+    }
+    100% {
+      transform: skewX(0deg);
+    }
+  }
+
+h2 {
+    font-size: xx-large;
+    -webkit-background-clip: text;
+    background-color: #000000;
+    -webkit-text-fill-color: wheat;
+    animation: pulse 1s infinite;
+}
+  
+  @keyframes pulse, wiggle {
+    0% {
+      background-position: 200% 50%;
+    }
+    100% {
+      background-position: 0 50%;
+    }
+  }
+
+  body {
+    background: black;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        background: teal;
+    }
+    15% {
+        background-image: -o-linear-gradient(yellow, black);
+    }
+    45% {
+        background-color: yellowgreen;
+    }
+    100% {
+        background: black;
+    }
+}
