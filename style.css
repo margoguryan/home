@@ -1,42 +1,59 @@
 h1 {
-    color: black;
-    -webkit-animation: pulse 1s infinite alternate, wiggle 2s infinite;
-    animation: pulse 5s infinite alternate, wiggle 2s infinite;
+    font-size: 5em;
+    opacity: 1;
+    transition: opacity 10s linear;
+    animation: fade 1s infinite;
   }
   
-  @-webkit-keyframes pulse {
-    from {
-      text-shadow: 0 0 10px white;
-    }
-    to {
-      text-shadow: 0 0 20px black;
-    }
-  }
-  
-  @keyframes pulse {
-    from {
-      text-shadow: 0 0 10px white;
-    }
-    to {
-      text-shadow: 0 0 200px linear-gradient(blue, green)
-    }
-  }
-  
-  @-webkit-keyframes wiggle {
+  @keyframes fade {
     0% {
-      transform: skewX(0deg);
+      opacity: 1;
     }
-    25% {
-      transform: skewX(-4deg);
+    10% {
+      opacity: 0.9;
+      font-family: "Times New Roman", Times, serif;
+      color: black;
+    }
+    20% {
+      opacity: 0.8;
+      color: green;
+    }
+    30% {
+      opacity: 0.7;
+      color: blue;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+    }
+    40% {
+      opacity: 0.6;
+      color: red;
     }
     50% {
-      transform: skewX(0deg);
+      opacity: 0.5;
+      color: purple;
+      font-family: "Arial Black", Gadget, sans-serif;
     }
-    75% {
-      transform: skewX(4deg);
+    60% {
+      opacity: 0.4;
+      color: black;
+    }
+    70% {
+      opacity: 0.3;
+      font-family: "Lucida Console", Monaco, monospace;
+      color: #1E90FF;
+    }
+    80% {
+      opacity: 0.2;
+      font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+      color: #FFA500;
+    }
+    90% {
+      opacity: 0.1;
+      color: #FF4500;
     }
     100% {
-      transform: skewX(0deg);
+      opacity: 0;
+      color: #FF0000;
+      font-family: "Times New Roman", Times, serif;
     }
   }
 
@@ -76,3 +93,22 @@ h2 {
         background: black;
     }
 }
+
+button {
+    perspective: 250px;
+    transform: scale(5);
+    opacity: 50;
+    animation: button-fade-in-out 10s infinite;
+  }
+  
+  @keyframes button-fade-in-out {
+    0% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }

@@ -1,14 +1,17 @@
 <!doctype html>
 <html>
-  <head>
+
+<head>
     <link rel="stylesheet" href="./style.css">
     <title>illegalnumber.art</title>
-  </head>
-  <body>
-    <h1 id ="c" onmouseover="changeColor()">illegalnumber</h1>
+</head>
+
+<body>
+    <center>
+    <h1 id="c" onmouseover="changeColor()">illegalnumber</h1>
     <br />
     <h2>
-        (dot[.])-art
+        dot[.]-art
     </h2>
     <br />
     <br />
@@ -17,24 +20,39 @@
     <script>
 
         function changeColor() {
-        
-            document.getElementById("b").style.backgroundColor = "yellowgreen";
             document.getElementById("c").style.backgroundColor = "lightblue";
 
-        
+
         }
-        </script>
-        <script>
-function changeSize() {
-    document.getElementById("b", "c").style.width = "400px";
-    document.getElementById("b").style.height = "200px";
-}
-</script>
+    </script>
 
-        
-        </script>
-        
-        <button id="b" onclick="changeColor()" onmouseover="changeSize()">Change Color</button>
+    <script>
+        function changeSize() {
+            document.getElementById("b", "c").style.width = "400px";
+            document.getElementById("b").style.height = "200px";
+        }
+    </script>
 
-  </body>
+
+    </script>
+
+    <button id="b" onclick="randomEmoji()" onmouseover="randomEmoji()"></button>
+    <script>
+        const randomEmoji = () => {
+  const emojis = ["😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "🥲", "☺️", "😊", "😇", "🙃", "😉", "😌", "😍", "🥰", "😘", "😗", "😙", "😚", "😋", "😛", "😝", "😜", "🤪", "🤨", "🧐", "🤓", "😎", "🥸", "🤩", "🥳", "😏", "😒", "😞", "😔", "😟", "😕", "🙁", "☹️", "😣", "😖", "😫", "😩", "🥱", "😴", "🤤", "😪", "😵", "🤐", "🤕", "🤑", "🤠", "😈", "👿", "👹", "👺", "🤡"];
+  const index1 = Math.floor(Math.random() * emojis.length);
+  const index2 = Math.floor(Math.random() * emojis.length);
+  const emoji1 = emojis[index1];
+  const emoji2 = emojis[index2];
+  const element = document.querySelector("button");
+  document.querySelector("h2");
+  element.innerHTML = `${emoji1} ${emoji2}`;
+};
+
+randomEmoji();
+    </script>
+    <h3></h3>       
+</center>
+</body>
+
 </html>
