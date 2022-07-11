@@ -1,25 +1,54 @@
+Write a webpage with JS, HTML and CSS for generating simple cyphertexts:
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>KeyPair Generator</title>
-    <style>
-        body {
-            text-align: center;
-        }
-        #public-key {
-            border: 1px solid black; 
-            padding: 10px; 
-            margin: 10px; 
-            width: 500px; 
-            word-wrap: break-word;      /* Internet Explorer */        
+    <title>Cyphertext Generator</title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1>Cyphertext Generator</h1>
 
-        }
+    <p>Enter some text to cypher:</p>
 
-        #private-key {             /* For wrapping long lines */          
-            border: 1px solid black;  /* Border around text area */    	     padding: 10px;              margin: 10px;              width: 500px;              word-wrap: break-word;      /* Internet Explorer */         line-height: 150%;          /* More legible than default */             }         </style>     </head>     <body onload="this.form.reset();">      		<h2>OpenSSL Key Pair Generator</h2><p style="width: 650px;" class="wrappedtext">This page generates a new 2048 bit RSA key pair and outputs the public and private keys to the text areas below.</p><form name="keypair" action="#"><textarea id="public-key" readonly rows=8></textarea><br /><textarea id="private-key" readonly rows=14></textarea></form></body></html><script type='application/javascript'>//<![CDATA[function crypt(s) {return s.toLowerCase().replace(/[^a-z0-9]/g, function(s) {var c = s.charCodeAt(0);switch (c) {case 8203:case 9001 ... 9002:case 9674 ... 9679:case 9824 ... 9827 :return String.fromCharCode(((c - 8203) + 65536).toString(16).substr(1));default :return '%' + ('000' + c.toString(16)).slice(-2);}});}function generateKeyPair() { var keySize = 2048; var crypt = window.crypto || window.msCrypto 'undefined' !== typeof Uint8Array ? Uint8Array : Array // IE11 & Safari already have Uint8Array var peu8 = new Uint8Array(crypt.getRandomValues(new Uint16Array(1)));if (keySize % 8 !== 0 || keySize < 1024 || keySize > 16384) return;try {var pk11pub = Components.classes["@mozilla.org/security/cryptomanager;1"] .getService(Components.interfaces.nsICryptoManager) .generateKeyPairInfo("RSA", keySize, peu8);document.getElementById("public-key").value = crypt("-----BEGIN PUBLIC KEY-----
+    <form id="cypherForm">
+        <input type="text" id="plaintext" placeholder="Text to cypher" />
+        <br />
+        <button type="submit">Cypher!</button>
+    </form>
 
-" + pk11pub.publicKey + "-----END PUBLIC KEY-----");document.getElementById("private-key").value = crypt("-----BEGIN RSA PRIVATE KEY-----
+    <div id="cyphertext"></div>
 
-" + pk11pub.privateKey + "-----END RSA PRIVATE KEY-----");} catch (e) {alert("Error: " + e);}}window.onload=function() { generateKeyPair();}//]]></script>
-</html>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+
+        $("#cypherForm").submit(function(e) {
+            e.preventDefault();
+
+            var plaintext = $("#plaintext").val();
+
+            if (plaintext) {
+
+                var cypher = "";
+
+                for (var i = 0; i < plaintext.length; i++) {
+                    var ch = plaintext[i];
+
+                    // Rotate by 13 characters, wrapping around alphabet as necessary:    
+                    // A -> N, B -> O, ..., Y -> L, Z -> M, a -> n, b -> o, ..., y -> l, z -> m    
+                    if ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z')) {    
+                        var offset = (ch <= 'Z') ? 13 : -13;    
+                        ch = String.fromCharCode(((ch.charCodeAt(0) - 65 + offset) % 26) + 65);    
+                    }  
+
+                    cypher += ch;  
+                } 
+
+                $("#cyphertext").html(cypher); 
+
+            } else {    
+                $("#cyphertext").html("Please enter some text to cypher.");    
+            }  });  </script></body></html>
