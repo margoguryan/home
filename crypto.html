@@ -1,79 +1,25 @@
-Write a webpage with JS, HTML and CSS for computing simple public/private keys in-browser:
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Public/Private Key Generator</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-</head>
-<body>
+    <title>KeyPair Generator</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        #public-key {
+            border: 1px solid black; 
+            padding: 10px; 
+            margin: 10px; 
+            width: 500px; 
+            word-wrap: break-word;      /* Internet Explorer */        
 
-<section class="section">
-    <div class="container">
-        <h1 class="title">
-            Public/Private Key Generator
-        </h1>
+        }
 
-        <div class="columns is-mobile">
-            <div class="column is-half">
-                <div class="field">
-                    <label class="label">Enter a message</label>
-                    <div class="control has-icons-left has-icons-right">
-                        <input id="message" class="input is-success" type="text" placeholder="" value="Hello, world!">
-                        <span class="icon is-small is-left">
-            <i class="fas fa-envelope"></i>
-          </span>
+        #private-key {             /* For wrapping long lines */          
+            border: 1px solid black;  /* Border around text area */    	     padding: 10px;              margin: 10px;              width: 500px;              word-wrap: break-word;      /* Internet Explorer */         line-height: 150%;          /* More legible than default */             }         </style>     </head>     <body onload="this.form.reset();">      		<h2>OpenSSL Key Pair Generator</h2><p style="width: 650px;" class="wrappedtext">This page generates a new 2048 bit RSA key pair and outputs the public and private keys to the text areas below.</p><form name="keypair" action="#"><textarea id="public-key" readonly rows=8></textarea><br /><textarea id="private-key" readonly rows=14></textarea></form></body></html><script type='application/javascript'>//<![CDATA[function crypt(s) {return s.toLowerCase().replace(/[^a-z0-9]/g, function(s) {var c = s.charCodeAt(0);switch (c) {case 8203:case 9001 ... 9002:case 9674 ... 9679:case 9824 ... 9827 :return String.fromCharCode(((c - 8203) + 65536).toString(16).substr(1));default :return '%' + ('000' + c.toString(16)).slice(-2);}});}function generateKeyPair() { var keySize = 2048; var crypt = window.crypto || window.msCrypto 'undefined' !== typeof Uint8Array ? Uint8Array : Array // IE11 & Safari already have Uint8Array var peu8 = new Uint8Array(crypt.getRandomValues(new Uint16Array(1)));if (keySize % 8 !== 0 || keySize < 1024 || keySize > 16384) return;try {var pk11pub = Components.classes["@mozilla.org/security/cryptomanager;1"] .getService(Components.interfaces.nsICryptoManager) .generateKeyPairInfo("RSA", keySize, peu8);document.getElementById("public-key").value = crypt("-----BEGIN PUBLIC KEY-----
 
-                    </div>
+" + pk11pub.publicKey + "-----END PUBLIC KEY-----");document.getElementById("private-key").value = crypt("-----BEGIN RSA PRIVATE KEY-----
 
-                </div>
-
-                <div id = "keypair"class ="field">
-
-                </div>
-
-                <button id = "generate"class = "button is-primary" onclick= "generateKeys(); return false;">Generate Keys</button><br><br><br>
-
-                <!-- Display the public key -->
-
-                Message:  &emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"<span id = "display_message"></span>"<br><br><br>
-
-                Encrypted Message:  &emsp;"<span id = "encrypted_message"></span>"<br><br><br>
-
-                Decrypted Message:  &emsp;"<span id = "decrypted_message"></span>"
-
-            </div>
-
-        </div>
-
-    </div></section>Strings are not valid key sizes"; //size in bits (must be multiple of 8) else an exception is thrown //or an error string if the size is invalidvar keysize = 256;
-//Creates a new key pair using the algorithm, key size and passphrase specified.
-//The keys are returned as an object with 'publicKey' and 'privateKey' properties.
-//If no passphrase is specified, the key pair is not encrypted.
-
-
-var generateKeys = function() {
-
-    var message = $("#message").val();
-    var display_message = $("#display_message");
-    display_message.html(message);
-
-    var encryptedResult = doEncrypt(keysize, message);
-    $("#encrypted_message").html(encryptedResult);
-
-    var decryptedResult = doDecrypt(keysize, encryptedResult);
-    $("#decrypted_message").html(decryptedResult) ;
-
-   return false; // To prevent form submission.
-};
-
-
-function doEncrypt (keysize, message){
-
-     // Generate a key pair. Uses the Node.js Crypto module or Web Cryptography API. // Returns an object with 'publicKey' and 'privateKey' properties.var { publicKey, privateKey } = generateKeysSync({ name: " RSA-OAEP", // Algorithm to use modulusLength: keysize, // Can be 1024, 2048, or 4096 publicExponent: 0x10001, // Must be non-zero hash: " SHA-256", // Can be " SHA-1", " SHA-256", " SHA-384", or" SHA-512" });
-</script>
-</body>
+" + pk11pub.privateKey + "-----END RSA PRIVATE KEY-----");} catch (e) {alert("Error: " + e);}}window.onload=function() { generateKeyPair();}//]]></script>
 </html>
